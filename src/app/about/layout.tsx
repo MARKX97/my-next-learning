@@ -7,8 +7,7 @@ export default function AboutLayout({
 }>) {
   return (
     <section className={styles["about-container"]}>
-      <h1>Welcome to Our Home Page</h1>
-
+      <h1>Welcome to About Page</h1>
       {children}
     </section>
   );
