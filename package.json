@@ -12,7 +12,7 @@
     "lint:all": "pnpm lint:fix && pnpm lint:style",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "preview": "bash tools/nginx-start.sh",
     "preview:stop": "bash tools/nginx-stop.sh",
     "preview:check": "bash -lc 'NGINX_BIN=$(command -v nginx || echo /opt/homebrew/bin/nginx) && \"$NGINX_BIN\" -t -c \"$(pwd)/tools/nginx-local-project.conf\" -p \"$(pwd)/tools/nginx-root/\"'",
