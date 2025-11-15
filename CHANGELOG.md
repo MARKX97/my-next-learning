@@ -1,3 +1,7 @@
+## 1.1.0 (2025-11-15)
+
+- feat: rebuild landing page with tailwind and zustand ([e7f720c](https://github.com/MARKX97/my-next-learning/commit/e7f720c))
+
 ## <small>1.0.3 (2025-10-31)</small>
 
 - chore: fix release-notes generator config ([63c66bb](https://github.com/MARKX97/my-next-learning/commit/63c66bb))
