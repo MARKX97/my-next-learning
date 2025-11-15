@@ -1,99 +1,207 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import nextLogo from '../../public/next.svg';
-import vercelLogo from '../../public/vercel.svg';
-import styles from './page.module.css';
+import {
+  ArrowRight,
+  BookOpenCheck,
+  Boxes,
+  GitBranch,
+  Hammer,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { FeatureShowcase } from '@/components/feature-showcase';
 
-export default function Home() {
+const techHighlights = [
+  {
+    title: 'Tailwind CSS + shadcn/ui',
+    description: {
+      en: 'Utility-first styling plus pre-built primitives so you move from layout to polish quickly.',
+      zh: '以工具类为主的样式方式，配合 shadcn/ui 的组件原子块，帮助你迅速从布局走到成品。',
+    },
+    href: 'https://ui.shadcn.com/',
+    icon: Boxes,
+  },
+  {
+    title: 'Zustand state management',
+    description: {
+      en: 'A tiny yet expressive store—perfect for interactive, client-side islands.',
+      zh: '轻量但可扩展的状态管理，适合构建客户端交互式模块。',
+    },
+    href: 'https://docs.pmnd.rs/zustand/getting-started/introduction',
+    icon: BookOpenCheck,
+  },
+];
+
+export default function HomePage() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href='https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            By{' '}
-            <Image
-              src={vercelLogo}
-              alt='Vercel Logo'
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src={nextLogo}
-          alt='Next.js Logo'
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+    <div className='mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-10 lg:py-16'>
+      <section className='grid gap-8 rounded-3xl border bg-gradient-to-br from-background to-muted/50 p-10 shadow-sm lg:grid-cols-[1.2fr_0.8fr]'>
+        <div className='space-y-6'>
+          <p className='inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold text-muted-foreground'>
+            Next.js App Router Playground
           </p>
-        </a>
-      </div>
-      <Link href='/about'>About Page</Link>
-    </main>
+          <h1 className='text-4xl font-semibold leading-tight tracking-tight md:text-5xl'>
+            Ship modern product experiments with Tailwind, shadcn/ui, and
+            Zustand.
+          </h1>
+          <p className='text-lg text-muted-foreground'>
+            This repo intentionally stays small so you can study how each tool
+            plugs into the App Router—styling, client state, and dynamic routes
+            all in one place.
+            <br />
+            <span className='text-sm'>
+              这个仓库保持轻量，便于你理解 Tailwind、shadcn/ui、Zustand 在 App
+              Router 中的组合方式。
+            </span>
+          </p>
+          <div className='flex flex-wrap gap-3'>
+            <Button asChild size='lg'>
+              <Link href='https://nextjs.org/docs' target='_blank'>
+                Next.js docs
+                <ArrowRight className='ml-2 h-4 w-4' />
+              </Link>
+            </Button>
+            <Button asChild variant='outline' size='lg'>
+              <Link href='/guide/dynamic/params'>Dynamic routing tour</Link>
+            </Button>
+          </div>
+        </div>
+        <div className='rounded-3xl border bg-card/60 p-6 text-sm text-muted-foreground'>
+          <p className='font-semibold text-foreground'>
+            Authentication ready slot
+          </p>
+          <p>
+            This space previously showcased Auth.js. Remove or replace it with
+            your own integrations—everything else stays static-export friendly.
+          </p>
+        </div>
+      </section>
+
+      <section className='grid gap-4 md:grid-cols-3'>
+        {techHighlights.map(({ title, description, href, icon: Icon }) => (
+          <article
+            key={title}
+            className='rounded-3xl border bg-card/70 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md'
+          >
+            <Icon className='mb-4 h-10 w-10 text-primary' />
+            <h3 className='text-xl font-semibold'>{title}</h3>
+            <p className='mt-2 text-sm text-muted-foreground'>
+              {description.en}
+            </p>
+            <p className='text-xs text-muted-foreground'>{description.zh}</p>
+            <Button asChild variant='link' className='px-0'>
+              <Link href={href} target='_blank'>
+                Read docs <ArrowRight className='ml-1 h-4 w-4' />
+              </Link>
+            </Button>
+          </article>
+        ))}
+      </section>
+
+      <FeatureShowcase />
+
+      <section className='grid gap-6 rounded-3xl border bg-card/70 p-8 lg:grid-cols-2'>
+        <div>
+          <p className='text-sm uppercase tracking-wide text-muted-foreground'>
+            Tech stack / 技术栈
+          </p>
+          <h2 className='text-2xl font-semibold'>
+            What powers this repo? 项目基石
+          </h2>
+          <ul className='mt-4 space-y-3 text-sm text-muted-foreground'>
+            <li>
+              <span className='font-semibold text-foreground'>
+                TypeScript + Next.js 14
+              </span>{' '}
+              — App Router, Route Groups, static export mode,
+              `generateStaticParams`.
+              <br />
+              <span className='text-xs text-muted-foreground'>
+                App Router、Route Group、静态导出配置都在此仓库中可见。
+              </span>
+            </li>
+            <li>
+              <span className='font-semibold text-foreground'>
+                Tailwind CSS
+              </span>{' '}
+              — configured via `tailwind.config.js`, `postcss.config.js`, and
+              `globals.css`.
+              <br />
+              <span className='text-xs text-muted-foreground'>
+                Tailwind 配置集中在上述文件，方便复用。
+              </span>
+            </li>
+            <li>
+              <span className='font-semibold text-foreground'>
+                shadcn/ui style primitives
+              </span>{' '}
+              — custom button component using class-variance-authority, Radix
+              Slot, and lucide icons.
+              <br />
+              <span className='text-xs text-muted-foreground'>
+                按钮组件示例展示了 shadcn/ui 的写法。
+              </span>
+            </li>
+            <li>
+              <span className='font-semibold text-foreground'>Zustand</span> —
+              powers the feature showcase demo.
+              <br />
+              <span className='text-xs text-muted-foreground'>
+                Zustand 负责首页特性卡片的状态管理。
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p className='text-sm uppercase tracking-wide text-muted-foreground'>
+            Engineering setup / 工程配置
+          </p>
+          <h2 className='text-2xl font-semibold'>
+            Workflow & automation 自动化流程
+          </h2>
+          <ul className='mt-4 space-y-3 text-sm text-muted-foreground'>
+            <li className='flex items-start gap-3'>
+              <GitBranch className='mt-1 h-4 w-4 text-primary' />
+              <span>
+                <span className='font-semibold text-foreground'>
+                  GitHub Actions
+                </span>{' '}
+                — release (semantic-release) + deploy (gh-pages) workflows tied
+                to `main`.
+                <br />
+                <span className='text-xs text-muted-foreground'>
+                  推送到 main 自动运行发布与部署工作流。
+                </span>
+              </span>
+            </li>
+            <li className='flex items-start gap-3'>
+              <Hammer className='mt-1 h-4 w-4 text-primary' />
+              <span>
+                <span className='font-semibold text-foreground'>
+                  pnpm + lint-staged + Husky
+                </span>{' '}
+                — enforce ESLint, Stylelint, Prettier before every commit.
+                <br />
+                <span className='text-xs text-muted-foreground'>
+                  通过 Husky 在提交阶段自动执行 lint/format。
+                </span>
+              </span>
+            </li>
+            <li className='flex items-start gap-3'>
+              <ArrowRight className='mt-1 h-4 w-4 text-primary' />
+              <span>
+                <span className='font-semibold text-foreground'>
+                  Static export ready
+                </span>{' '}
+                — `next.config.mjs` keeps `output: &apos;export&apos;` with
+                optional `basePath` for GitHub Pages.
+                <br />
+                <span className='text-xs text-muted-foreground'>
+                  通过 basePath/assetPrefix 切换，即可部署到 GitHub Pages。
+                </span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
   );
 }

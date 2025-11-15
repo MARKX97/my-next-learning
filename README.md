@@ -1,17 +1,18 @@
 # my-next-learning
 
-基于 Next.js 14 的个人学习项目，目标是演练静态导出、动态路由、自动化发布及本地预览等完整工作流。
+基于 Next.js 14 的个人学习项目，演练 **静态导出**、**动态路由**、**Tailwind + shadcn/ui 风格组件**、**Zustand 客户端状态** 以及自动化发布/部署的完整工作流。
 
 ## 技术栈与主要功能
 
-- **框架**：Next.js 14（App Router）
+- **框架**：Next.js 14（App Router + `generateStaticParams`）
 - **语言**：TypeScript / React 18
-- **样式**：CSS Modules，可扩展到 SCSS
-- **打包与工具链**：pnpm、ESLint、Prettier、Stylelint
+- **样式**：Tailwind CSS + shadcn/ui 风格组件（button、卡片等）
+- **状态管理**：Zustand（首页交互式特性卡片）
+- **打包与工具链**：pnpm、ESLint、Prettier、Stylelint、Husky + lint-staged
 - **自动化**：
   - GitHub Actions `release.yml` 使用 `semantic-release` 自动生成版本及 `CHANGELOG.md`
   - GitHub Actions `deploy.yml` 将静态导出结果发布到 `gh-pages`（GitHub Pages）
-- **动态页面示例**：`/about/dynamic/[id]` 静态生成两个示例页并在客户端请求网易云音乐 API
+- **动态路由示例**：`/guide/dynamic/[topic]` 通过 `generateStaticParams()` 预生成 `params/revalidate/metadata` 三个主题，展示如何在构建阶段为动态段生成静态 HTML
 
 ## 环境准备
 
@@ -32,7 +33,7 @@ pnpm install --frozen-lockfile
 | `pnpm dev`            | 启动开发服务器 (`http://localhost:3000`)           |
 | `pnpm build`          | 生成静态导出产物到 `out/`                          |
 | `pnpm lint`           | 运行 ESLint（Next 官方规则 + TypeScript 推荐规则） |
-| `pnpm lint:style`     | 运行 Stylelint（使用社区标准 preset）              |
+| `pnpm lint:style`     | 运行 Stylelint（支持 Tailwind 特有 at-rule）       |
 | `pnpm format`         | 使用 Prettier 自动格式化                           |
 | `pnpm preview`        | 启动项目内的 nginx 用于静态预览 `out/`             |
 | `pnpm preview:stop`   | 停止项目内 nginx                                   |
@@ -111,23 +112,27 @@ pnpm preview:stop # 停止
 ## 目录速览
 
 ```
-└── src/
-    └── app/
-        └── about/dynamic/[id]/
-            ├── DynamicClient.tsx  # 客户端组件，示例演示异步数据获取
-            └── page.tsx           # 使用 generateStaticParams 生成示例静态页面
-└── tools/                        # nginx 配置与辅助脚本
-└── .github/workflows/            # release（semantic-release）与 deploy（gh-pages）
-└── .releaserc.json               # semantic-release 配置
-└── commitlint.config.js          # 提交规范配置
+├── src
+│   ├── app
+│   │   ├── page.tsx                  # 首页：Tailwind/shadcn + Zustand 特性展示
+│   │   └── guide/dynamic/[topic]/    # 动态路由示例（generateStaticParams）
+│   ├── components
+│   │   ├── feature-showcase.tsx      # Zustand store 的客户端组件
+│   │   └── ui/button.tsx             # shadcn/ui 风格按钮
+│   ├── lib/utils.ts                  # `cn()` 帮助函数
+│   └── stores/use-feature-store.ts   # Zustand store
+├── tools/                            # 项目级 nginx 配置与脚本
+├── .github/workflows/                # release（semantic-release）与 deploy（gh-pages）
+├── .releaserc.json                   # semantic-release 配置
+└── commitlint.config.js              # 提交规范配置
 ```
 
 ## 开发注意事项
 
 - 始终使用 `.nvmrc` 指定的 Node 版本运行命令，避免与 CI 环境不一致
 - 所有依赖必须通过 `pnpm` 安装，勿混用 npm/yarn
-- `src/app/about/dynamic/[id]/page.tsx` 当前仅静态生成 `1`、`2` 两个示例页面，如需更多 ID 请扩展 `generateStaticParams`
-- 对于新增的 API 请求或预览脚本，注意不要泄露敏感凭证；GitHub Actions 仅使用内置 `GITHUB_TOKEN`
+- `src/app/guide/dynamic/[topic]/page.tsx` 的静态路由通过 `supportedTopics` 控制，新增主题时别忘了同步 `generateStaticParams`
+- 对于新增的 API/脚本，注意不要泄露敏感凭证；GitHub Actions 仅使用内置 `GITHUB_TOKEN`
 - 发布前确保 commit 记录清晰且遵循规范，避免阻断自动化流程
 
 如有疑问，可查看各配置文件或在 Issues 中讨论。欢迎继续完善与探索！\*\*\* End Patch
