@@ -1,0 +1,2 @@
+:HL["/my-next-learning/_next/static/chunks/d04e3f9a09173aa9.css","style"]
+0:{"buildId":"PPtauJIXQAaC6J0gkwCqE","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

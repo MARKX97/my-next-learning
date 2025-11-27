@@ -1,0 +1,8 @@
+1:"$Sreact.fragment"
+2:I[87625,["/my-next-learning/_next/static/chunks/22fc8eaca9ee64bc.js","/my-next-learning/_next/static/chunks/7eb5861ee097b323.js"],"ViewportBoundary"]
+4:I[87625,["/my-next-learning/_next/static/chunks/22fc8eaca9ee64bc.js","/my-next-learning/_next/static/chunks/7eb5861ee097b323.js"],"MetadataBoundary"]
+5:"$Sreact.suspense"
+7:I[65893,["/my-next-learning/_next/static/chunks/22fc8eaca9ee64bc.js","/my-next-learning/_next/static/chunks/7eb5861ee097b323.js"],"IconMark"]
+0:{"buildId":"PPtauJIXQAaC6J0gkwCqE","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+6:[["$","title","0",{"children":"Dynamic routing & PPR reference"}],["$","meta","1",{"name":"description","content":"A compact sandbox that demonstrates Tailwind CSS, shadcn/ui-inspired primitives, and Zustand inside a Next.js App Router project."}],["$","link","2",{"rel":"icon","href":"/my-next-learning/favicon.ico?favicon.0b3bf435.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L7","3",{}]]
