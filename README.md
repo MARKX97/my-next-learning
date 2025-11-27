@@ -1,18 +1,18 @@
 # my-next-learning
 
-基于 Next.js 14 的个人学习项目，演练 **静态导出**、**动态路由**、**Tailwind + shadcn/ui 风格组件**、**Zustand 客户端状态** 以及自动化发布/部署的完整工作流。
+基于 Next.js 16 + React 19 的个人学习项目，演练 **Partial Pre-rendering（部分预渲染）**、**动态路由**、**Tailwind + shadcn/ui 风格组件**、**Zustand 客户端状态** 以及自动化发布/部署的完整工作流。所有页面文案均提供 **中英对照**，便于在界面或文档中快速查阅。
 
 ## 技术栈与主要功能
 
-- **框架**：Next.js 14（App Router + `generateStaticParams`）
-- **语言**：TypeScript / React 18
+- **框架**：Next.js 16（App Router + `generateStaticParams` + Partial Pre-rendering）
+- **语言**：TypeScript / React 19（支持服务器组件内的 `use()` Promise 解包）
 - **样式**：Tailwind CSS + shadcn/ui 风格组件（button、卡片等）
-- **状态管理**：Zustand（首页交互式特性卡片）
+- **状态管理**：Zustand（首页交互式特性卡片，展示 PPR/React19/缓存标签等主题）
 - **打包与工具链**：pnpm、ESLint、Prettier、Stylelint、Husky + lint-staged
 - **自动化**：
   - GitHub Actions `release.yml` 使用 `semantic-release` 自动生成版本及 `CHANGELOG.md`
   - GitHub Actions `deploy.yml` 将静态导出结果发布到 `gh-pages`（GitHub Pages）
-- **动态路由示例**：`/guide/dynamic/[topic]` 通过 `generateStaticParams()` 预生成 `params/revalidate/metadata` 三个主题，展示如何在构建阶段为动态段生成静态 HTML
+- **动态路由示例**：`/guide/dynamic/[topic]` 通过 `generateStaticParams()` 预生成 `params/revalidate/metadata/ppr` 四个主题，展示如何在静态导出中携带动态段参数，并讲解 Partial Pre-rendering 的切换
 
 ## 环境准备
 
@@ -28,20 +28,20 @@ pnpm install --frozen-lockfile
 
 ## 常用脚本
 
-| 命令                  | 说明                                               |
-| --------------------- | -------------------------------------------------- |
-| `pnpm dev`            | 启动开发服务器 (`http://localhost:3000`)           |
-| `pnpm build`          | 生成静态导出产物到 `out/`                          |
-| `pnpm lint`           | 运行 ESLint（Next 官方规则 + TypeScript 推荐规则） |
-| `pnpm lint:style`     | 运行 Stylelint（支持 Tailwind 特有 at-rule）       |
-| `pnpm format`         | 使用 Prettier 自动格式化                           |
-| `pnpm preview`        | 启动项目内的 nginx 用于静态预览 `out/`             |
-| `pnpm preview:stop`   | 停止项目内 nginx                                   |
-| `pnpm preview:verify` | 快速检查静态资源可访问性                           |
+| 命令                  | 说明                                                                 |
+| --------------------- | -------------------------------------------------------------------- |
+| `pnpm dev`            | 启动开发服务器 (`http://localhost:3000`)                             |
+| `pnpm build`          | 生成静态导出产物到 `out/`                                            |
+| `pnpm lint`           | 运行 ESLint（Next 官方规则 + TypeScript 推荐规则，基于 flat config） |
+| `pnpm lint:style`     | 运行 Stylelint（支持 Tailwind 特有 at-rule）                         |
+| `pnpm format`         | 使用 Prettier 自动格式化                                             |
+| `pnpm preview`        | 启动项目内的 nginx 用于静态预览 `out/`                               |
+| `pnpm preview:stop`   | 停止项目内 nginx                                                     |
+| `pnpm preview:verify` | 快速检查静态资源可访问性                                             |
 
 ## 代码规范
 
-- **ESLint**：基于 `next/core-web-vitals` 和 `@typescript-eslint/recommended`
+- **ESLint**：基于 flat config（`eslint.config.mjs`），组合 `eslint-config-next/core-web-vitals`、`typescript-eslint` 推荐规则与 `eslint-config-prettier`
 - **Stylelint**：`stylelint-config-standard(-scss)` + `stylelint-config-css-modules`
 - **Prettier**：格式化 JS/TS/JSON/Markdown/YAML
 - **Lint-staged**：提交前自动运行格式化与 Lint（通过 Husky `prepare` 钩子安装）
@@ -114,13 +114,13 @@ pnpm preview:stop # 停止
 ```
 ├── src
 │   ├── app
-│   │   ├── page.tsx                  # 首页：Tailwind/shadcn + Zustand 特性展示
-│   │   └── guide/dynamic/[topic]/    # 动态路由示例（generateStaticParams）
+│   │   ├── page.tsx                  # 首页：Next16 + React19，支持 use() 与中英双语内容
+│   │   └── guide/dynamic/[topic]/    # 动态路由示例（params/revalidate/metadata/ppr）
 │   ├── components
-│   │   ├── feature-showcase.tsx      # Zustand store 的客户端组件
+│   │   ├── feature-showcase.tsx      # Zustand store 的客户端组件（中英对照特性列表）
 │   │   └── ui/button.tsx             # shadcn/ui 风格按钮
 │   ├── lib/utils.ts                  # `cn()` 帮助函数
-│   └── stores/use-feature-store.ts   # Zustand store
+│   └── stores/use-feature-store.ts   # Zustand store（管理 PPR/React19/缓存标签文案）
 ├── tools/                            # 项目级 nginx 配置与脚本
 ├── .github/workflows/                # release（semantic-release）与 deploy（gh-pages）
 ├── .releaserc.json                   # semantic-release 配置
@@ -135,4 +135,4 @@ pnpm preview:stop # 停止
 - 对于新增的 API/脚本，注意不要泄露敏感凭证；GitHub Actions 仅使用内置 `GITHUB_TOKEN`
 - 发布前确保 commit 记录清晰且遵循规范，避免阻断自动化流程
 
-如有疑问，可查看各配置文件或在 Issues 中讨论。欢迎继续完善与探索！\*\*\* End Patch
+如有疑问，可查看各配置文件或在 Issues 中讨论。欢迎继续完善与探索！

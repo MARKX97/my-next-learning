@@ -18,7 +18,7 @@ export function FeatureShowcase() {
     <section className='grid gap-6 rounded-3xl border bg-card/60 p-6 shadow-sm backdrop-blur lg:grid-cols-[240px_1fr]'>
       <div className='flex flex-col gap-2'>
         <p className='text-sm uppercase tracking-wide text-muted-foreground'>
-          Interactive stack
+          Interactive stack / 互动技术栈
         </p>
         {features.map(feature => (
           <button
@@ -32,22 +32,43 @@ export function FeatureShowcase() {
                 : 'border-transparent hover:bg-muted'
             )}
           >
-            <p className='text-sm font-semibold'>{feature.title}</p>
-            <p className='text-xs text-muted-foreground'>{feature.summary}</p>
+            <p className='text-sm font-semibold'>
+              {feature.title.en}
+              <span className='ml-1 text-xs text-muted-foreground'>
+                {feature.title.zh}
+              </span>
+            </p>
+            <p className='text-xs text-muted-foreground'>
+              {feature.summary.en}
+              <br />
+              <span>{feature.summary.zh}</span>
+            </p>
           </button>
         ))}
       </div>
       <div className='space-y-4 rounded-2xl border bg-background/80 p-6 shadow-inner'>
         <div>
           <p className='text-sm uppercase tracking-wide text-muted-foreground'>
-            Currently focused
+            Currently focused / 当前关注
           </p>
-          <h3 className='text-2xl font-semibold'>{activeFeature.title}</h3>
-          <p className='mt-2 text-muted-foreground'>{activeFeature.summary}</p>
+          <h3 className='text-2xl font-semibold'>
+            {activeFeature.title.en}
+            <span className='ml-2 text-base text-muted-foreground'>
+              {activeFeature.title.zh}
+            </span>
+          </h3>
+          <p className='mt-2 text-muted-foreground'>
+            {activeFeature.summary.en}
+            <br />
+            <span className='text-sm text-muted-foreground'>
+              {activeFeature.summary.zh}
+            </span>
+          </p>
         </div>
         <Button asChild>
           <Link href={activeFeature.docsUrl} target='_blank' rel='noreferrer'>
-            {activeFeature.actionLabel} <ArrowRight className='ml-2 h-4 w-4' />
+            {activeFeature.actionLabel.en} / {activeFeature.actionLabel.zh}
+            <ArrowRight className='ml-2 h-4 w-4' />
           </Link>
         </Button>
       </div>

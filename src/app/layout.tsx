@@ -21,24 +21,25 @@ export default function RootLayout({
           <header className='sticky top-0 z-50 border-b bg-white/70 backdrop-blur dark:bg-background/80'>
             <div className='mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4'>
               <Link href='/' className='text-lg font-semibold tracking-tight'>
-                Next Learning Lab
+                Next Learning Lab 学习实验室
               </Link>
               <nav className='flex items-center gap-3 text-sm font-medium text-muted-foreground'>
                 <Link href='/' className='hover:text-foreground'>
-                  Home
+                  Home / 首页
                 </Link>
                 <Link
                   href='/guide/dynamic/params'
                   className='hover:text-foreground'
                 >
-                  Dynamic routing guide
+                  Dynamic routing guide / 动态路由指南
                 </Link>
                 <a
                   href='https://github.com/MARKX97/my-next-learning'
                   target='_blank'
+                  rel='noreferrer'
                   className='inline-flex items-center gap-2 rounded-full border px-3 py-1 hover:text-foreground'
                 >
-                  <Github className='h-4 w-4' /> Repo
+                  <Github className='h-4 w-4' /> Repo / 仓库
                 </a>
               </nav>
             </div>
