@@ -1,3 +1,7 @@
+## 1.2.0 (2025-11-27)
+
+- feat: upgrade to next16 and add bilingual UI ([db6b834](https://github.com/MARKX97/my-next-learning/commit/db6b834))
+
 ## 1.1.0 (2025-11-15)
 
 - feat: rebuild landing page with tailwind and zustand ([e7f720c](https://github.com/MARKX97/my-next-learning/commit/e7f720c))
